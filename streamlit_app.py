@@ -25,5 +25,5 @@ streamlit.header("Fruityvice Fruit Advice!")
 
 import requests as rq
 fruityvice_response = rq.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response
+streamlit.text(fruityvice_response)
 
