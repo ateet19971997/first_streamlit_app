@@ -66,8 +66,7 @@ if streamlit.button('Get Fruit Load List'):
 
   
   
-#don't run anything here while troubleshoot
-streamlit.stop()
+
 
 
 #Allow the user
@@ -81,3 +80,7 @@ if streamlit.button('Add a Fruit to the list'):
   my_cnx = sc.connect(**streamlit.secrets["snowflake"])
   back_from_function = insert_row_snowflake(add_my_fruit)
   streamlit.text(back_from_fucntion)
+
+  
+#don't run anything here while troubleshoot
+streamlit.stop()
