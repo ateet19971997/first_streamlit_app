@@ -1,7 +1,7 @@
 import streamlit
 import pandas as pd
-
-#from urllib.error import URLError as ue
+import requests as rq
+#import URLError as ue
 
 
 streamlit.title('My Parents New Healthy Diner')
@@ -24,24 +24,25 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 # Display the table on the page.
 streamlit.dataframe(fruits_to_show)
-
 streamlit.header("Fruityvice Fruit Advice!")
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Apple')
-streamlit.write('The user entered ', fruit_choice)
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    streamlit.error("Please select a fruit to get information.")
+  else:
+    fruityvice_response = rq.get("https://fruityvice.com/api/fruit/"+fruit_choice)
+    #streamlit.text(fruityvice_response.json())
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
 
-import requests as rq
-fruityvice_response = rq.get("https://fruityvice.com/api/fruit/"+fruit_choice)
-#streamlit.text(fruityvice_response.json())
-
-
-# write your own comment -what does the next line do? 
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-
+except URLError as e:
+  streamlit.error()
+  
+  
 #don't run anything here while troubleshoot
 streamlit.stop()
 
-streamlit.dataframe(fruityvice_normalized)
+
 import snowflake.connector as sc
 
 my_cnx = sc.connect(**streamlit.secrets["snowflake"])
@@ -57,4 +58,3 @@ fruit_choice = streamlit.text_input('What fruit would you like to add?','jackfru
 streamlit.write('Thanks for adding ',fruit_choice)
 
 my_cur.execute("insert into fruit_load_list values ('from_streamlit')")
-
