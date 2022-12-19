@@ -24,7 +24,7 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 
-
+#ateet
 
 # Create the repeatable code block (called a function)
 def get_fruityvice_data(this_fruit_choice):
