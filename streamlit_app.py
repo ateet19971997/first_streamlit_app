@@ -46,9 +46,7 @@ try:
 except:
   streamlit.error()
   
-  
-#don't run anything here while troubleshoot
-streamlit.stop()
+
 
 streamlit.header("The fruit load list contains")
 #snowflake connector
@@ -65,6 +63,12 @@ if streamlit.button('Get Fruit Load List'):
   my_cnx = sc.connect(**streamlit.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
   streamlit.dataframe(my_data_rows)
+
+  
+  
+#don't run anything here while troubleshoot
+streamlit.stop()
+
 
 fruit_choice = streamlit.text_input('What fruit would you like to add?','jackfruit')
 #fruit_choice = streamlit.text_input()
