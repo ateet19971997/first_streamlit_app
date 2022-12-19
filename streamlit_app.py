@@ -33,6 +33,8 @@ fruityvice_response = rq.get("https://fruityvice.com/api/fruit/"+fruit_choice)
 # write your own comment -what does the next line do? 
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
+
+
 streamlit.dataframe(fruityvice_normalized)
 import snowflake.connector as sc
 
@@ -44,5 +46,6 @@ streamlit.text("The fruit load list contains")
 streamlit.dataframe(my_data_rows)
 
 fruit_choice = streamlit.text_input('What fruit would you like to add?','jackfruit')
-fruit_choice = streamlit.text_input('Thanks for adding jackfruit')
+fruit_choice = streamlit.text_input()
 #streamlit.write('The user entered ', fruit_choice)
+streamlit.text('Thanks for adding jackfruit')
